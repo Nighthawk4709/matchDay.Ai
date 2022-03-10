@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:matchday_ui/Screens/AnalyseByRally.dart';
 import 'package:matchday_ui/Screens/AnalyzebyShot.dart';
+import 'package:matchday_ui/Screens/settings.dart';
 import 'package:matchday_ui/main.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:hovering/hovering.dart';
@@ -16,10 +17,12 @@ class Site extends StatefulWidget {
 
 class _SiteState extends State<Site> {
   late List<Data> _chartData;
+  late List<Data> _newData;
   late TooltipBehavior _tooltipBehavior;
   @override
   void initState() {
     _chartData = getChartData();
+    _newData = getData();
     _tooltipBehavior = TooltipBehavior(enable: true);
     super.initState();
   }
@@ -33,7 +36,10 @@ class _SiteState extends State<Site> {
         leading: Transform.scale(
           scale: 1.45,
           child: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context,
+                  new MaterialPageRoute(builder: (context) => Settings()));
+            },
             icon: Image.asset(
               "assets/image/user.png",
               fit: BoxFit.cover,
@@ -357,10 +363,10 @@ class _SiteState extends State<Site> {
                                       height: 60,
                                       child: Center(
                                           child: Text(
-                                        "ANIKET",
+                                        "Aniket",
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 40,
+                                            fontSize: 30,
                                             color: Colors.white),
                                       )))),
                             ],
@@ -399,7 +405,22 @@ class _SiteState extends State<Site> {
                                         child: Container(
                                       width: 120,
                                       height: 80,
-                                      child: Text("Hi"),
+                                      child: SfCircularChart(
+                                        tooltipBehavior: _tooltipBehavior,
+                                        series: <CircularSeries>[
+                                          DoughnutSeries<Data, String>(
+                                            radius: "60",
+                                            dataSource: _chartData,
+                                            xValueMapper: (Data data, _) =>
+                                                data.datalabel,
+                                            yValueMapper: (Data data, _) =>
+                                                data.values,
+                                            dataLabelSettings:
+                                                DataLabelSettings(
+                                                    isVisible: true),
+                                          )
+                                        ],
+                                      ),
                                     ))
                                   ],
                                 ),
@@ -409,7 +430,22 @@ class _SiteState extends State<Site> {
                                         child: Container(
                                       width: 120,
                                       height: 80,
-                                      child: Text("Hi"),
+                                      child: SfCircularChart(
+                                        tooltipBehavior: _tooltipBehavior,
+                                        series: <CircularSeries>[
+                                          PieSeries<Data, String>(
+                                            radius: "60",
+                                            dataSource: _newData,
+                                            xValueMapper: (Data data, _) =>
+                                                data.datalabel,
+                                            yValueMapper: (Data data, _) =>
+                                                data.values,
+                                            dataLabelSettings:
+                                                DataLabelSettings(
+                                                    isVisible: true),
+                                          )
+                                        ],
+                                      ),
                                     ))
                                   ],
                                 )
@@ -435,6 +471,18 @@ class _SiteState extends State<Site> {
       Data("NR / Tie", 10)
     ];
     return chartData;
+  }
+
+  List<Data> getData() {
+    final List<Data> newData = [
+      Data("Smash", 18),
+      Data("Toss", 32),
+      Data("Drop", 23),
+      Data("Net", 15),
+      Data("Dive", 2),
+      Data("Parallel", 10),
+    ];
+    return newData;
   }
 
   @override

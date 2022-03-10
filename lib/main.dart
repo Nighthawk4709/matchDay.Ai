@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:matchday_ui/Screens/animationFront.dart';
 import 'package:matchday_ui/verify.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
@@ -49,9 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Image.asset("assets/image/d.png", height: 200, fit: BoxFit.fill),
-        ]),
+        AnimatedImage(),
         SizedBox(
           height: 10.0,
         ),
