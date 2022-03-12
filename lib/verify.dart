@@ -24,7 +24,7 @@ class _VerifyState extends State<Verify> {
     myfocusNode = FocusNode();
     myfocusNode.requestFocus();
 
-    SmsAutoFill().listenForCode();
+    SmsAutoFill().listenForCode.call();
   }
 
   @override
@@ -94,6 +94,28 @@ class _VerifyState extends State<Verify> {
         ),
         Center(
           child: FormHelper.submitButton("Verify", () {
+            // setState(() {
+            //   isAPICall = true;
+            // });
+            // APIService.verifyOTP(widget.mobileNo!, widget.otpHash!, _otpCode)
+            //     .then((response) async {
+            //   setState(() {
+            //     isAPICall = false;
+            //   });
+            //   print(response.message);
+            //   print(response.data);
+            //   if (response.data != null) {
+            //     Navigator.pushAndRemoveUntil(
+            //         context,
+            //         new MaterialPageRoute(builder: (context) => Site()),
+            //         (route) => false);
+            //   } else {
+            //     FormHelper.showSimpleAlertDialog(
+            //         context, "Wrong OTP", response.message, "Ok", () {
+            //       Navigator.pop(context);
+            //     });
+            //   }
+            // });
             Navigator.push(
                 context, new MaterialPageRoute(builder: (context) => Site()));
           },

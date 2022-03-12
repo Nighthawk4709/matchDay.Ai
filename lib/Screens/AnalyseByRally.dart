@@ -2,7 +2,8 @@ import 'dart:math';
 
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
-import 'package:matchday_ui/Screens/buttonsTopNav.dart';
+import 'package:matchday_ui/buttons/buttonsTopNav.dart';
+import 'package:matchday_ui/buttons/floatingActionButton.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../site.dart';
@@ -203,10 +204,27 @@ class _AnalyseRallyState extends State<AnalyseRally> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    "$dropdownValue vs Aniket",
-                    style: TextStyle(fontSize: 14),
-                  )
+                  Column(
+                    children: [
+                      Text(
+                        dropdownValue,
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Column(
+                    children: [Text("vs")],
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Column(
+                    children: [Text("Aniket")],
+                  ),
                 ],
               ),
               SizedBox(
@@ -227,39 +245,12 @@ class _AnalyseRallyState extends State<AnalyseRally> {
             height: 10,
           ),
           buildRow(),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          //     Container(
-          //       width: 300,
-          //       height: 200,
-          //       child: SfCartesianChart(
-          //           primaryXAxis: CategoryAxis(),
-          //           primaryYAxis: NumericAxis(),
-          //           series: <ChartSeries<_ShotsData, String>>[
-          //             ColumnSeries(
-          //                 color: Colors.blueAccent[200],
-          //                 dataSource: data,
-          //                 xValueMapper: (_ShotsData sales, _) => sales.year,
-          //                 xAxisName: 'Rally length',
-          //                 yValueMapper: (_ShotsData sales, _) => sales.sales,
-          //                 yAxisName: '% of points won',
-          //                 // Enable data label
-          //                 dataLabelSettings:
-          //                     DataLabelSettings(isVisible: true)),
-          //           ]),
-          //     )
-          //   ],
-          // ),
           DataTable2(
             headingRowColor: MaterialStateColor.resolveWith((states) {
               if (states.contains(MaterialState.pressed)) return Colors.blue;
-              return Color(0xffb0bec5); //make tha magic!
+              return Colors.indigo.shade50;
             }),
-            border: TableBorder.all(
-              width: 0.5,
-              color: Colors.grey,
-            ),
+            border: TableBorder.all(width: 0.5, color: Colors.grey),
             columns: [
               DataColumn2(
                 label: Text("Rally length"),
@@ -278,42 +269,36 @@ class _AnalyseRallyState extends State<AnalyseRally> {
               ),
             ],
             rows: [
-              DataRow2(
-                  color: MaterialStateColor.resolveWith((states) {
-                    if (states.contains(MaterialState.pressed))
-                      return Colors.blue;
-                    return Color(0xffb0bec5); //make tha magic!
-                  }),
-                  cells: [
-                    DataCell(Text(
-                      "0-5",
-                      style: TextStyle(fontSize: 14),
-                    )),
-                    DataCell(Text("$r1")),
-                    DataCell(Text("$r2")),
-                  ]),
               DataRow2(cells: [
                 DataCell(Text(
-                  "6-10",
+                  "0-5",
                   style: TextStyle(fontSize: 14),
                 )),
-                DataCell(Text("$r3")),
-                DataCell(Text("$r4")),
+                DataCell(Text("$r1")),
+                DataCell(Text("$r2")),
               ]),
               DataRow2(
                   color: MaterialStateColor.resolveWith((states) {
                     if (states.contains(MaterialState.pressed))
                       return Colors.blue;
-                    return Color(0xffb0bec5); //make tha magic!
+                    return Colors.grey.shade100;
                   }),
                   cells: [
                     DataCell(Text(
-                      "11-15",
+                      "6-10",
                       style: TextStyle(fontSize: 14),
                     )),
-                    DataCell(Text("$r5")),
-                    DataCell(Text("$r6")),
+                    DataCell(Text("$r3")),
+                    DataCell(Text("$r4")),
                   ]),
+              DataRow2(cells: [
+                DataCell(Text(
+                  "11-15",
+                  style: TextStyle(fontSize: 14),
+                )),
+                DataCell(Text("$r5")),
+                DataCell(Text("$r6")),
+              ]),
               DataRow2(cells: [
                 DataCell(Text(
                   "16-20",
@@ -326,7 +311,7 @@ class _AnalyseRallyState extends State<AnalyseRally> {
                   color: MaterialStateColor.resolveWith((states) {
                     if (states.contains(MaterialState.pressed))
                       return Colors.blue;
-                    return Color(0xffb0bec5); //make tha magic!
+                    return Colors.indigo.shade50;
                   }),
                   cells: [
                     DataCell(Text(
@@ -343,16 +328,7 @@ class _AnalyseRallyState extends State<AnalyseRally> {
           ),
         ],
       )),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.green[200],
-        onPressed: () {
-          Navigator.push(
-              context, new MaterialPageRoute(builder: (context) => Site()));
-        },
-        child: Center(
-          child: Text("Know\nMore"),
-        ),
-      ),
+      floatingActionButton: Fab(),
     );
   }
 

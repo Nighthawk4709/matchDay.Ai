@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:matchday_ui/homepage.dart';
+import 'package:matchday_ui/main.dart';
 
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);
@@ -113,7 +115,9 @@ class _SettingsState extends State<Settings> {
       color: Colors.grey.shade600,
     ),
     IconButton(
-      onPressed: () {},
+      onPressed: () {
+        //Navigator.pop(context);
+      },
       icon: Icon(Icons.meeting_room),
       color: Colors.grey.shade600,
     ),

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:matchday_ui/Screens/AnalyseByRally.dart';
 import 'package:matchday_ui/Screens/AnalyzebyShot.dart';
+import 'package:matchday_ui/Screens/drawer.dart';
 import 'package:matchday_ui/Screens/settings.dart';
-import 'package:matchday_ui/main.dart';
+import 'package:matchday_ui/homepage.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:hovering/hovering.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -31,36 +32,29 @@ class _SiteState extends State<Site> {
   Widget build(BuildContext context) {
     final style1 = TextStyle(fontSize: 20);
     return Scaffold(
+      resizeToAvoidBottomInset: true,
+      drawer: DrawerSite(),
       appBar: AppBar(
         backgroundColor: Colors.teal[300],
-        leading: Transform.scale(
-          scale: 1.45,
-          child: IconButton(
-            onPressed: () {
-              Navigator.push(context,
-                  new MaterialPageRoute(builder: (context) => Settings()));
-            },
-            icon: Image.asset(
-              "assets/image/user.png",
-              fit: BoxFit.cover,
-            ),
-            iconSize: 18,
-          ),
-        ),
         title: Text("MatchDay.AI", style: style1),
         actions: <Widget>[
-          IconButton(
-            onPressed: () {
-              Navigator.push(context,
-                  new MaterialPageRoute(builder: (context) => MyHomePage()));
-            },
-            icon: Icon(
-              Icons.logout_rounded,
-              size: 25,
+          Transform.scale(
+            scale: 2,
+            child: IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    new MaterialPageRoute(builder: (context) => Settings()));
+              },
+              icon: Image.asset(
+                "assets/image/user.png",
+                fit: BoxFit.cover,
+              ),
+              iconSize: 18,
             ),
-          )
+          ),
         ],
       ),
+
       body: SingleChildScrollView(
         child: Column(children: [
           SizedBox(height: 10),
@@ -379,7 +373,7 @@ class _SiteState extends State<Site> {
                                     Center(
                                         child: Container(
                                       width: 120,
-                                      height: 120,
+                                      height: 100,
                                       child: SfCircularChart(
                                         tooltipBehavior: _tooltipBehavior,
                                         series: <CircularSeries>[
@@ -455,7 +449,96 @@ class _SiteState extends State<Site> {
                 ],
               ),
             ],
-          )
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Column(children: [
+            Text(
+              "Contact Us",
+              style: TextStyle(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Center(
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: TextFormField(
+                  maxLines: 1,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: "Name : ",
+                    filled: true,
+                    fillColor: Colors.grey.shade200,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 2,
+            ),
+            Center(
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: TextFormField(
+                  maxLines: 1,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: "Email : ",
+                    filled: true,
+                    fillColor: Colors.grey.shade200,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 2,
+            ),
+            Center(
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: TextFormField(
+                  maxLines: 10,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: "Message : ",
+                    filled: true,
+                    fillColor: Colors.grey.shade200,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 2,
+            ),
+            Center(
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(primary: Colors.black87),
+                  child: Center(
+                      child: Text("SUBMIT",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ))),
+                  onPressed: () {},
+                ),
+              ),
+            ),
+          ]),
+          Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Center(
+              child: Text(
+                "@ matchDay.AI",
+                style: TextStyle(color: Colors.grey),
+              ),
+            ),
+          ])
         ]),
       ),
       // bottomNavigationBar: BottomNavigationBar(

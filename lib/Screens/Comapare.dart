@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:data_table_2/data_table_2.dart';
-import 'package:matchday_ui/Screens/buttonsTopNav.dart';
+import 'package:matchday_ui/buttons/buttonsTopNav.dart';
+import 'package:matchday_ui/buttons/floatingActionButton.dart';
 import 'dart:math';
 
 import 'package:matchday_ui/site.dart';
@@ -40,7 +41,7 @@ class _CompareState extends State<Compare> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.brown[300],
+        backgroundColor: Colors.teal,
         title: Text("Compare your game"),
         actions: [
           IconButton(
@@ -178,12 +179,27 @@ class _CompareState extends State<Compare> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    "$dropdownValue VS Aniket",
-                    style: TextStyle(
-                      fontSize: 14,
-                    ),
-                  )
+                  Column(
+                    children: [
+                      Text(
+                        dropdownValue,
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Column(
+                    children: [Text("vs")],
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Column(
+                    children: [Text("Aniket")],
+                  ),
                 ],
               ),
               SizedBox(
@@ -200,10 +216,13 @@ class _CompareState extends State<Compare> {
               ),
             ],
           ),
+          SizedBox(
+            height: 20,
+          ),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             Center(
                 child: Container(
-              height: 180.0,
+              height: 150.0,
               width: 240.0,
               decoration: BoxDecoration(
                 image: DecorationImage(
@@ -219,7 +238,7 @@ class _CompareState extends State<Compare> {
           DataTable2(
             headingRowColor: MaterialStateColor.resolveWith((states) {
               if (states.contains(MaterialState.pressed)) return Colors.blue;
-              return Color(0xffb0bec5); //make tha magic!
+              return Colors.indigo.shade50;
             }),
             border: TableBorder.all(color: Colors.grey, width: 0.5),
             columns: [
@@ -250,7 +269,7 @@ class _CompareState extends State<Compare> {
                   color: MaterialStateColor.resolveWith((states) {
                     if (states.contains(MaterialState.pressed))
                       return Colors.blue;
-                    return Color(0xffb0bec5); //make tha magic!
+                    return Color(0xffb0bec5);
                   }),
                   cells: [
                     DataCell(Text(
@@ -274,7 +293,7 @@ class _CompareState extends State<Compare> {
                   color: MaterialStateColor.resolveWith((states) {
                     if (states.contains(MaterialState.pressed))
                       return Colors.blue;
-                    return Color(0xffb0bec5); //make tha magic!
+                    return Color(0xffb0bec5);
                   }),
                   cells: [
                     DataCell(Text(
@@ -298,7 +317,7 @@ class _CompareState extends State<Compare> {
                   color: MaterialStateColor.resolveWith((states) {
                     if (states.contains(MaterialState.pressed))
                       return Colors.blue;
-                    return Color(0xffb0bec5); //make tha magic!
+                    return Color(0xffb0bec5);
                   }),
                   cells: [
                     DataCell(Text(
@@ -313,16 +332,7 @@ class _CompareState extends State<Compare> {
           ),
         ],
       )),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.green[200],
-        onPressed: () {
-          Navigator.push(
-              context, new MaterialPageRoute(builder: (context) => Site()));
-        },
-        child: Center(
-          child: Text("Know\nMore"),
-        ),
-      ),
+      floatingActionButton: Fab(),
     );
   }
 }

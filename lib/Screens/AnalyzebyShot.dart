@@ -1,11 +1,9 @@
 import 'dart:math';
-
-import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:matchday_ui/Screens/Comapare.dart';
-import 'package:matchday_ui/Screens/buttonsTopNav.dart';
-
-import '../site.dart';
+import 'package:matchday_ui/buildRowsAndColumns/buildAnalyseShot.dart';
+import 'package:matchday_ui/buttons/buttonsTopNav.dart';
+import 'package:matchday_ui/buttons/floatingActionButton.dart';
 
 class AnalyseShot extends StatefulWidget {
   const AnalyseShot({Key? key}) : super(key: key);
@@ -44,18 +42,6 @@ class _AnalyseShotState extends State<AnalyseShot> {
             height: 20,
           ),
           ButtonAnalyseShot(),
-          // Row(
-          //   children: [
-          //     Text("My Matches -> Basic Analysis ->"),
-          //     Text(
-          //       "Analysis",
-          //       style: TextStyle(
-          //           fontWeight: FontWeight.bold,
-          //           color: Colors.pink[900],
-          //           fontSize: 16),
-          //     )
-          //   ],
-          // ),
           SizedBox(
             height: 60,
           ),
@@ -232,10 +218,27 @@ class _AnalyseShotState extends State<AnalyseShot> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    "$dropdownValue vs Aniket",
-                    style: TextStyle(fontSize: 14),
-                  )
+                  Column(
+                    children: [
+                      Text(
+                        dropdownValue,
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Column(
+                    children: [Text("vs")],
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Column(
+                    children: [Text("Aniket")],
+                  ),
                 ],
               ),
               SizedBox(
@@ -246,7 +249,7 @@ class _AnalyseShotState extends State<AnalyseShot> {
                 children: [
                   Text(
                     "TOKYO OLYMPICS",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   )
                 ],
               )
@@ -255,11 +258,10 @@ class _AnalyseShotState extends State<AnalyseShot> {
           SizedBox(
             height: 10,
           ),
-
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             Center(
                 child: Container(
-              height: 180.0,
+              height: 150.0,
               width: 240.0,
               decoration: BoxDecoration(
                 image: DecorationImage(
@@ -287,8 +289,10 @@ class _AnalyseShotState extends State<AnalyseShot> {
               ]),
             ],
           ),
-
-          buildRow(),
+          BuildRow(
+            check: "$dy",
+            l: l,
+          ),
           SizedBox(
             height: 10,
           ),
@@ -317,404 +321,7 @@ class _AnalyseShotState extends State<AnalyseShot> {
           ]),
         ],
       )),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.green[200],
-        onPressed: () {
-          Navigator.push(
-              context, new MaterialPageRoute(builder: (context) => Site()));
-        },
-        child: Center(
-          child: Text("Know\nMore"),
-        ),
-      ),
+      floatingActionButton: Fab(),
     );
-  }
-
-  buildRow() {
-    if ("$dy" == "OverView") {
-      return DataTable2(
-        border: TableBorder.all(color: MaterialStateColor.resolveWith((states) {
-          if (states.contains(MaterialState.pressed)) return Colors.blue;
-          return Color(0xffb0bec5);
-        })),
-        headingRowColor: MaterialStateColor.resolveWith((states) {
-          if (states.contains(MaterialState.pressed)) return Colors.blue;
-          return Color(0xffb0bec5); //make tha magic!
-        }),
-        columns: [
-          DataColumn2(
-            label: Text(""),
-          ),
-          DataColumn2(
-              label: Text(
-                "Game\n1",
-                style: TextStyle(fontSize: 13),
-              ),
-              size: ColumnSize.L),
-          DataColumn2(
-              label: Text(
-                "Game\n2",
-                style: TextStyle(fontSize: 13),
-              ),
-              size: ColumnSize.L),
-          DataColumn2(
-            label: Text(
-              "Game\n3",
-              style: TextStyle(fontSize: 13),
-            ),
-          ),
-        ],
-        rows: [
-          DataRow2(
-              color: MaterialStateColor.resolveWith((states) {
-                if (states.contains(MaterialState.pressed)) return Colors.blue;
-                return Color(0xffb0bec5); //make tha magic!
-              }),
-              cells: [
-                DataCell(Text(
-                  "Count",
-                  style: TextStyle(fontSize: 12),
-                )),
-                DataCell(Text("${l[5]}")),
-                DataCell(Text("${l[10]}")),
-                DataCell(Text("${l[1]}"))
-              ]),
-          DataRow2(cells: [
-            DataCell(Text(
-              "Winner",
-              style: TextStyle(fontSize: 12),
-            )),
-            DataCell(Text("${l[4]}")),
-            DataCell(Text("${l[8]}")),
-            DataCell(Text("${l[2]}"))
-          ]),
-          DataRow2(
-              color: MaterialStateColor.resolveWith((states) {
-                if (states.contains(MaterialState.pressed)) return Colors.blue;
-                return Color(0xffb0bec5); //make tha magic!
-              }),
-              cells: [
-                DataCell(Text(
-                  "Winner %",
-                  style: TextStyle(fontSize: 12),
-                )),
-                DataCell(Text("${l[0]}")),
-                DataCell(Text("${l[1]}")),
-                DataCell(Text("${l[2]}"))
-              ]),
-          DataRow2(cells: [
-            DataCell(Text(
-              "Error",
-              style: TextStyle(fontSize: 12),
-            )),
-            DataCell(Text("${l[7]}")),
-            DataCell(Text("${l[8]}")),
-            DataCell(Text("${l[9]}"))
-          ]),
-          DataRow2(
-              color: MaterialStateColor.resolveWith((states) {
-                if (states.contains(MaterialState.pressed)) return Colors.blue;
-                return Color(0xffb0bec5); //make tha magic!
-              }),
-              cells: [
-                DataCell(Text(
-                  "Error%",
-                  style: TextStyle(fontSize: 12),
-                )),
-                DataCell(Text("${l[10]}")),
-                DataCell(Text("${l[2]}")),
-                DataCell(Text("${l[11]}"))
-              ]),
-        ],
-      );
-    } else if ("$dy" == "Game1") {
-      return DataTable2(
-        border: TableBorder.all(color: MaterialStateColor.resolveWith((states) {
-          if (states.contains(MaterialState.pressed)) return Colors.blue;
-          return Color(0xffb0bec5);
-        })),
-        headingRowColor: MaterialStateColor.resolveWith((states) {
-          if (states.contains(MaterialState.pressed)) return Colors.blue;
-          return Color(0xffb0bec5); //make tha magic!
-        }),
-        columns: [
-          DataColumn2(
-            label: Text(""),
-          ),
-          DataColumn2(
-              label: Text(
-                "Game\n1",
-                style: TextStyle(fontSize: 13),
-              ),
-              size: ColumnSize.L),
-          DataColumn2(
-              label: Text(
-                "Game\n2",
-                style: TextStyle(fontSize: 13),
-              ),
-              size: ColumnSize.L),
-          DataColumn2(
-            label: Text(
-              "Game\n3",
-              style: TextStyle(fontSize: 13),
-            ),
-          ),
-        ],
-        rows: [
-          DataRow2(
-              color: MaterialStateColor.resolveWith((states) {
-                if (states.contains(MaterialState.pressed)) return Colors.blue;
-                return Color(0xffb0bec5); //make tha magic!
-              }),
-              cells: [
-                DataCell(Text(
-                  "Count",
-                  style: TextStyle(fontSize: 12),
-                )),
-                DataCell(Text("${l[0]}")),
-                DataCell(Text("${l[1]}")),
-                DataCell(Text("${l[2]}"))
-              ]),
-          DataRow2(cells: [
-            DataCell(Text(
-              "Winner",
-              style: TextStyle(fontSize: 12),
-            )),
-            DataCell(Text("${l[3]}")),
-            DataCell(Text("${l[4]}")),
-            DataCell(Text("${l[5]}"))
-          ]),
-          DataRow2(
-              color: MaterialStateColor.resolveWith((states) {
-                if (states.contains(MaterialState.pressed)) return Colors.blue;
-                return Color(0xffb0bec5); //make tha magic!
-              }),
-              cells: [
-                DataCell(Text(
-                  "Winner %",
-                  style: TextStyle(fontSize: 12),
-                )),
-                DataCell(Text("${l[0]}")),
-                DataCell(Text("${l[1]}")),
-                DataCell(Text("${l[2]}"))
-              ]),
-          DataRow2(cells: [
-            DataCell(Text(
-              "Error",
-              style: TextStyle(fontSize: 12),
-            )),
-            DataCell(Text("${l[7]}")),
-            DataCell(Text("${l[8]}")),
-            DataCell(Text("${l[9]}"))
-          ]),
-          DataRow2(
-              color: MaterialStateColor.resolveWith((states) {
-                if (states.contains(MaterialState.pressed)) return Colors.blue;
-                return Color(0xffb0bec5); //make tha magic!
-              }),
-              cells: [
-                DataCell(Text(
-                  "Error%",
-                  style: TextStyle(fontSize: 12),
-                )),
-                DataCell(Text("${l[10]}")),
-                DataCell(Text("${l[2]}")),
-                DataCell(Text("${l[11]}"))
-              ]),
-        ],
-      );
-    } else if ("$dy" == "Game2") {
-      return DataTable2(
-        border: TableBorder.all(color: MaterialStateColor.resolveWith((states) {
-          if (states.contains(MaterialState.pressed)) return Colors.blue;
-          return Color(0xffb0bec5);
-        })),
-        headingRowColor: MaterialStateColor.resolveWith((states) {
-          if (states.contains(MaterialState.pressed)) return Colors.blue;
-          return Color(0xffb0bec5); //make tha magic!
-        }),
-        columns: [
-          DataColumn2(
-            label: Text(""),
-          ),
-          DataColumn2(
-              label: Text(
-                "Game\n1",
-                style: TextStyle(fontSize: 13),
-              ),
-              size: ColumnSize.L),
-          DataColumn2(
-              label: Text(
-                "Game\n2",
-                style: TextStyle(fontSize: 13),
-              ),
-              size: ColumnSize.L),
-          DataColumn2(
-            label: Text(
-              "Game\n3",
-              style: TextStyle(fontSize: 13),
-            ),
-          ),
-        ],
-        rows: [
-          DataRow2(
-              color: MaterialStateColor.resolveWith((states) {
-                if (states.contains(MaterialState.pressed)) return Colors.blue;
-                return Color(0xffb0bec5); //make tha magic!
-              }),
-              cells: [
-                DataCell(Text(
-                  "Count",
-                  style: TextStyle(fontSize: 12),
-                )),
-                DataCell(Text("${l[2]}")),
-                DataCell(Text("${l[4]}")),
-                DataCell(Text("${l[8]}"))
-              ]),
-          DataRow2(cells: [
-            DataCell(Text(
-              "Winner",
-              style: TextStyle(fontSize: 12),
-            )),
-            DataCell(Text("${l[1]}")),
-            DataCell(Text("${l[5]}")),
-            DataCell(Text("${l[10]}"))
-          ]),
-          DataRow2(
-              color: MaterialStateColor.resolveWith((states) {
-                if (states.contains(MaterialState.pressed)) return Colors.blue;
-                return Color(0xffb0bec5); //make tha magic!
-              }),
-              cells: [
-                DataCell(Text(
-                  "Winner %",
-                  style: TextStyle(fontSize: 12),
-                )),
-                DataCell(Text("${l[10]}")),
-                DataCell(Text("${l[5]}")),
-                DataCell(Text("${l[6]}"))
-              ]),
-          DataRow2(cells: [
-            DataCell(Text(
-              "Error",
-              style: TextStyle(fontSize: 12),
-            )),
-            DataCell(Text("${l[7]}")),
-            DataCell(Text("${l[8]}")),
-            DataCell(Text("${l[9]}"))
-          ]),
-          DataRow2(
-              color: MaterialStateColor.resolveWith((states) {
-                if (states.contains(MaterialState.pressed)) return Colors.blue;
-                return Color(0xffb0bec5); //make tha magic!
-              }),
-              cells: [
-                DataCell(Text(
-                  "Error%",
-                  style: TextStyle(fontSize: 12),
-                )),
-                DataCell(Text("${l[3]}")),
-                DataCell(Text("${l[2]}")),
-                DataCell(Text("${l[1]}"))
-              ]),
-        ],
-      );
-    } else {
-      return DataTable2(
-        border: TableBorder.all(color: MaterialStateColor.resolveWith((states) {
-          if (states.contains(MaterialState.pressed)) return Colors.blue;
-          return Color(0xffb0bec5);
-        })),
-        headingRowColor: MaterialStateColor.resolveWith((states) {
-          if (states.contains(MaterialState.pressed)) return Colors.blue;
-          return Color(0xffb0bec5); //make tha magic!
-        }),
-        columns: [
-          DataColumn2(
-            label: Text(""),
-          ),
-          DataColumn2(
-              label: Text(
-                "Game\n1",
-                style: TextStyle(fontSize: 13),
-              ),
-              size: ColumnSize.L),
-          DataColumn2(
-              label: Text(
-                "Game\n2",
-                style: TextStyle(fontSize: 13),
-              ),
-              size: ColumnSize.L),
-          DataColumn2(
-            label: Text(
-              "Game\n3",
-              style: TextStyle(fontSize: 13),
-            ),
-          ),
-        ],
-        rows: [
-          DataRow2(
-              color: MaterialStateColor.resolveWith((states) {
-                if (states.contains(MaterialState.pressed)) return Colors.blue;
-                return Color(0xffb0bec5); //make tha magic!
-              }),
-              cells: [
-                DataCell(Text(
-                  "Count",
-                  style: TextStyle(fontSize: 12),
-                )),
-                DataCell(Text("${l[2]}")),
-                DataCell(Text("${l[0]}")),
-                DataCell(Text("${l[1]}"))
-              ]),
-          DataRow2(cells: [
-            DataCell(Text(
-              "Winner",
-              style: TextStyle(fontSize: 12),
-            )),
-            DataCell(Text("${l[8]}")),
-            DataCell(Text("${l[7]}")),
-            DataCell(Text("${l[4]}"))
-          ]),
-          DataRow2(
-              color: MaterialStateColor.resolveWith((states) {
-                if (states.contains(MaterialState.pressed)) return Colors.blue;
-                return Color(0xffb0bec5); //make tha magic!
-              }),
-              cells: [
-                DataCell(Text(
-                  "Winner %",
-                  style: TextStyle(fontSize: 12),
-                )),
-                DataCell(Text("${l[5]}")),
-                DataCell(Text("${l[8]}")),
-                DataCell(Text("${l[9]}"))
-              ]),
-          DataRow2(cells: [
-            DataCell(Text(
-              "Error",
-              style: TextStyle(fontSize: 12),
-            )),
-            DataCell(Text("${l[7]}")),
-            DataCell(Text("${l[8]}")),
-            DataCell(Text("${l[9]}"))
-          ]),
-          DataRow2(
-              color: MaterialStateColor.resolveWith((states) {
-                if (states.contains(MaterialState.pressed)) return Colors.blue;
-                return Color(0xffb0bec5); //make tha magic!
-              }),
-              cells: [
-                DataCell(Text(
-                  "Error%",
-                  style: TextStyle(fontSize: 12),
-                )),
-                DataCell(Text("${l[10]}")),
-                DataCell(Text("${l[3]}")),
-                DataCell(Text("${l[11]}"))
-              ]),
-        ],
-      );
-    }
   }
 }
